@@ -1,37 +1,41 @@
 (function(logSender) {
-    "use strict";
-    var rabbit = require("node-rabbitmq");
+    'use strict';
+    var rabbit = null;
+
+    logSender.configure = function (rabbitQueue) {
+        rabbit = rabbitQueue;
+    };
 
     function buildLog(type, message) {
         return {
-            messageType: "logging",
+            messageType: 'logging',
             logType: type,
             logMessage: message
         };
     }
 
     function sendLog(log) {
-    	rabbit.sendJson(log);
+        rabbit.sendJson(log);
     }
 
     logSender.info = function(message) {
-    	var log = buildLog("Info", message);
-    	sendLog(log);
+        var log = buildLog('Info', message);
+        sendLog(log);
     };
 
     logSender.warn = function(message) {
-    	var log = buildLog("Warn", message);
-    	sendLog(log);
+        var log = buildLog('Warn', message);
+        sendLog(log);
     };
 
     logSender.debug = function(message) {
-    	var log = buildLog("Debug", message);
-    	sendLog(log);
+        var log = buildLog('Debug', message);
+        sendLog(log);
     };
 
     logSender.error = function(message) {
-    	var log = buildLog("Error", message);
-    	sendLog(log);
+        var log = buildLog('Error', message);
+        sendLog(log);
     };
 
 })(module.exports);
