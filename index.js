@@ -10,7 +10,8 @@
         return {
             messageType: 'logging',
             logType: type,
-            logMessage: message
+            logMessage: message,
+            logDate: new Date()
         };
     }
 
