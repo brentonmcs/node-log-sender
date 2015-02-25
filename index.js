@@ -36,6 +36,7 @@
 
     logSender.error = function(message) {
         var log = buildLog('Error', message);
+        rabbit.sendJson({messageType: 'error', message: message});
         sendLog(log);
     };
 
