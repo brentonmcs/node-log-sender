@@ -2,13 +2,12 @@
     'use strict';
     var rabbit = null;
 
-    logSender.configure = function (rabbitQueue) {
+    logSender.configure = function(rabbitQueue) {
         rabbit = rabbitQueue;
     };
 
     function buildLog(type, message) {
-        return {
-            messageType: 'logging',
+        return {            
             logType: type,
             logMessage: message,
             logDate: new Date()
@@ -16,7 +15,7 @@
     }
 
     function sendLog(log) {
-        rabbit.sendJson(log);
+        rabbit.sendJson('logging', log);
     }
 
     logSender.info = function(message) {
@@ -36,7 +35,10 @@
 
     logSender.error = function(message) {
         var log = buildLog('Error', message);
-        rabbit.sendJson({messageType: 'error', message: message});
+        rabbit.sendJson({
+            messageType: 'error',
+            message: message
+        });
         sendLog(log);
     };
 
