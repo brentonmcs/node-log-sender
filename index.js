@@ -15,7 +15,7 @@
     }
 
     function sendLog(log) {
-        rabbit.sendJson('logging', log);
+        rabbit.sendJson(log, 'logging');
     }
 
     logSender.info = function(message) {
