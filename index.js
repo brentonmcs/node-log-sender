@@ -35,11 +35,15 @@
 
     logSender.error = function(message) {
         var log = buildLog('Error', message);
-        rabbit.sendJson({
-            messageType: 'error',
-            message: message
-        });
         sendLog(log);
+        logSender.sendKPI('Error');
+    };
+
+    logSender.sendKPI = function (kpiName) {
+      var kpi = {
+          kpiName: kpiName
+      }
+        rabbit.sendJson(kpi, 'KPI');
     };
 
 })(module.exports);
